@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 14px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke-width: 1.5px;
+}
+
+.data-series-0 {
+  stroke: steelblue;
+  fill: steelblue;
+}
+
+.data-series-1 {
+  stroke: crimson;
+  fill: crimson;
+}
+
+.data-series-2 {
+  stroke: mediumseagreen;
+  fill: mediumseagreen;
+}
+
+.data-series-3 {
+  stroke: mediumslateblue;
+  fill: mediumslateblue;
+}
+
+.data-series-4 {
+  stroke: goldenrod;
+  fill: goldenrod;
+}
+
+.error-bar {
+  fill: none;
+}
+
+</style>
+<body>
+<h1>purescript-benchotron</h1>
+<p>Upload JSON results and render graphs.</p>
+<p>Error bars represent one standard deviation of uncertainty.</p>
+
+<input type="file" id="file"></input>
+
+<output>
+<div id="graph"></div>
+</output>
+
+<script src="d3.v3.min.js"></script>
+<script src="benchotronRenderer.js"></script>
+
+<script>
+function handleFileSelect(evt) {
+  var files = evt.target.files
+
+  if (files.length > 0) {
+    var file = files[0]
+
+    var reader = new FileReader
+    reader.onload = function(e) {
+      var jsonString = e.target.result
+      var data = JSON.parse(jsonString)
+      BenchotronRenderer.drawGraph(data, '#graph')
+    }
+    reader.readAsText(file)
+  }
+}
+
+document.getElementById('file')
+  .addEventListener('change', handleFileSelect, false)
+</script>
+
+</html>

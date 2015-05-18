@@ -54,8 +54,8 @@ function renderSeries(svg, seriesIndex, data) {
         .attr("d", function(d) {
               var mx = x(d.size),
                   my = y(d.stats.mean),
-                  my1 = y(d.stats.mean + d.stats.deviation),
-                  my2 = y(d.stats.mean - d.stats.deviation),
+                  my1 = y(d.stats.mean + d.stats.moe),
+                  my2 = y(d.stats.mean - d.stats.moe),
                   dx = 3
               return ["M", mx, my,
                       "V", my1, "h", -dx, "h", 2 * dx, "h", -dx,

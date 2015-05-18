@@ -1,7 +1,7 @@
 window.BenchotronRenderer = {}
 ;(function() {
 
-var margin = {top: 80, right: 20, bottom: 60, left: 50},
+var margin = {top: 80, right: 40, bottom: 60, left: 80},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -74,12 +74,21 @@ function concatArray(x, y) {
 }
 
 function drawGraph(data, elId) {
+  // Delete the old graph
+  d3.select(elId + " svg").remove()
+
+  // Create the new graph
   var svg = d3.select(elId).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+  // Add the styles
+  var styleText = d3.select("#svg-styles").text()
+  d3.select(elId + " svg").append("style").text(styleText)
+
+  // Compute appropriate scales
   var allData = data.series
                     .map(function(x) { return x.results })
                     .reduce(concatArray, []) // flatten

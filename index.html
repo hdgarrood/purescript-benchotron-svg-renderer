@@ -2,7 +2,12 @@
 <html>
 <meta charset="utf-8">
 <style>
+body {
+  font: 14px sans-serif;
+}
+</style>
 
+<span id="svg-styles" style="display:none">
 body {
   font: 14px sans-serif;
 }
@@ -47,18 +52,23 @@ body {
 .error-bar {
   fill: none;
 }
+</span>
 
-</style>
 <body>
 <h1>purescript-benchotron</h1>
 <p>Upload JSON results and render graphs.</p>
 <p>Error bars represent one standard deviation of uncertainty.</p>
 
+<div>
+<form>
 <input type="file" id="file"></input>
+</form>
+</div>
 
-<output>
-<div id="graph"></div>
+<div>
+<output id="graph">
 </output>
+</div>
 
 <script src="d3.v3.min.js"></script>
 <script src="benchotronRenderer.js"></script>

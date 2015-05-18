@@ -1,7 +1,7 @@
 window.BenchotronRenderer = {}
 ;(function() {
 
-var margin = {top: 80, right: 40, bottom: 60, left: 80},
+var margin = {top: 40, right: 40, bottom: 60, left: 80},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 

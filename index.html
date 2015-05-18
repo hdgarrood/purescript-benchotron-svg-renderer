@@ -8,7 +8,7 @@ body {
 </style>
 
 <span id="svg-styles" style="display:none">
-body {
+text {
   font: 14px sans-serif;
 }
 
@@ -62,6 +62,7 @@ body {
 <div>
 <form>
 <input type="file" id="file"></input>
+<button type="button" id="export">Export to SVG</button>
 </form>
 </div>
 
@@ -71,6 +72,7 @@ body {
 </div>
 
 <script src="d3.v3.min.js"></script>
+<script src="FileSaver.min.js"></script>
 <script src="benchotronRenderer.js"></script>
 
 <script>
@@ -92,6 +94,18 @@ function handleFileSelect(evt) {
 
 document.getElementById('file')
   .addEventListener('change', handleFileSelect, false)
+
+function handleSvgExport() {
+  var el = document.getElementsByTagName("svg")[0]
+  if (el != null) {
+    var svgString = (new XMLSerializer).serializeToString(el)
+    var svgBlob = new Blob([svgString], {type: 'text/svg'})
+    saveAs(svgBlob, "graph.svg")
+  }
+}
+
+document.getElementById('export')
+  .addEventListener('click', handleSvgExport, false)
 </script>
 
 </html>

@@ -17,7 +17,12 @@ var xAxis = d3.svg.axis()
 
 var yAxis = d3.svg.axis()
     .scale(y)
-    .orient("left");
+    .orient("left")
+    .tickFormat(function(d) {
+      var scientific = d3.format('0.2e')
+      var fixed      = d3.format('0.2f')
+      return d <= 0.01 ? scientific(d) : fixed(d)
+    });
 
 var line = d3.svg.line()
     .x(function(d) { return x(d.size); })

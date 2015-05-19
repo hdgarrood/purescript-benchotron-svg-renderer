@@ -106,7 +106,7 @@ function drawGraph(data, elId) {
       .attr("transform", "translate(" + (width / 2) + ", 0)")
      .append("text")
       .style("text-anchor", "middle")
-      .style("font-size", "200%")
+      .style("font-size", "28px")
       .text(data.title)
 
   // Draw x axis

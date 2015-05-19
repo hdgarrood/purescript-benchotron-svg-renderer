@@ -1,13 +1,51 @@
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
+<link rel="stylesheet" href="normalize.css" type="text/css">
 <style>
+html {
+  height: 100%;
+  background: linear-gradient(to top left, #003d19, #0f5c2e);
+}
+
 body {
-  font: 14px sans-serif;
+  font-weight: normal;
+  font-size: 120%;
+  font-family: sans-serif;
+}
+
+main {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #e0d9d9;
+  color: #223;
+  padding: 1em;
+  border: 5px solid #7ab793;
+  border-top: none;
+}
+
+h1 {
+  font-style: italic;
+  text-shadow: 2px 2px 0 #bbb;
+}
+
+a, a:visited {
+  font-weight: bold;
+  color: #0f5c2e;
+}
+
+a:hover {
+  color: #003d19;
 }
 
 .output-container {
   margin-top: 2em;
+  background-color: white;
+}
+
+.footer {
+  text-align: center;
 }
 </style>
 
@@ -59,16 +97,17 @@ text {
 </span>
 
 <body>
+<main role="main">
 <h1>purescript-benchotron SVG renderer</h1>
-
-<h2>How to use this</h2>
-<p><strong>Step 1.</strong> Perform benchmarks on your PureScript / JavaScript
-code, using
-<a href="https://github.com/hdgarrood/purescript-benchotron">purescript-benchotron</a>.
-</p>
-<p><strong>Step 2.</strong> Upload the results here and have lovely SVG graphs
-rendered for you.</p>
-
+<ol>
+    <li>
+        Perform benchmarks on your PureScript / JavaScript code, using
+       <a href="https://github.com/hdgarrood/purescript-benchotron">purescript-benchotron</a>.
+    </li>
+    <li>
+        Upload the results here and have lovely SVG graphs rendered for you.
+    </li>
+</ol>
 
 <p>Error bars represent 95% confidence intervals.</p>
 
@@ -83,6 +122,13 @@ rendered for you.</p>
 <output id="graph">
 </output>
 </div>
+
+<hr>
+<div class="footer">
+    <p>By <a href="https://twitter.com/hdgarrood">@hdgarrood</a> /
+    <a href="https://github.com/hdgarrood/purescript-benchotron-svg-renderer">Source on GitHub</a></p>
+</div>
+</main>
 
 <script src="d3.v3.min.js"></script>
 <script src="FileSaver.min.js"></script>

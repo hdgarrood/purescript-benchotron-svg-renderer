@@ -165,6 +165,14 @@ function drawGraph(data, elId) {
       .attr("x", 24)
       .attr("y", function(_, i) { return i * 20 + 13 })
       .text(function(d) { return d })
+
+  // HACK: Apply some classes for styling, since apparently lots of SVG
+  // software can't cope with anything other than the most basic selectors
+  svg.selectAll('.axis line')
+      .attr('class', 'axis-line')
+
+  svg.selectAll('.axis path')
+      .attr('class', 'axis-path')
 }
 
 window.BenchotronRenderer.drawGraph = drawGraph

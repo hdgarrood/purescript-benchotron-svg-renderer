@@ -84,14 +84,20 @@ function drawGraph(data, elId) {
 
   // Create the new graph
   var svg = d3.select(elId).append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Add the styles
   var styleText = d3.select("#svg-styles").text()
-  d3.select(elId + " svg").append("style").text(styleText)
+  d3.select(elId + " svg")
+    .append("defs")
+      .append("style")
+      .attr("type", "text/css")
+      .text(styleText)
+
+  // Prepare the graph
+  svg.attr("width", width + margin.left + margin.right)
+     .attr("height", height + margin.top + margin.bottom)
+  svg = svg.append("g")
+           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Compute appropriate scales
   var allData = data.series

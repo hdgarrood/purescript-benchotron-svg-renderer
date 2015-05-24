@@ -94,8 +94,14 @@ function drawGraph(data, elId) {
       .text(styleText)
 
   // Prepare the graph
-  svg.attr("width", width + margin.left + margin.right)
-     .attr("height", height + margin.top + margin.bottom)
+  var totalWidth  = width + margin.left + margin.right;
+  var totalHeight = height + margin.top + margin.bottom;
+  svg.attr("width", totalWidth)
+     .attr("height", totalHeight)
+  svg.append("rect")
+      .attr("width", totalWidth)
+      .attr("height", totalHeight)
+      .attr("class", "background")
   svg = svg.append("g")
            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 

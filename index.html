@@ -144,6 +144,8 @@ the recorded mean.</p>
 <script src="benchotronRenderer.js"></script>
 
 <script>
+var slug = ''
+
 function handleFileSelect(evt) {
   var files = evt.target.files
 
@@ -154,6 +156,7 @@ function handleFileSelect(evt) {
     reader.onload = function(e) {
       var jsonString = e.target.result
       var data = JSON.parse(jsonString)
+      slug = data.slug || file.name.replace(/.json/, '')
       BenchotronRenderer.drawGraph(data, '#graph')
     }
     reader.readAsText(file)
@@ -168,7 +171,8 @@ function handleSvgExport() {
   if (el != null) {
     var svgString = (new XMLSerializer).serializeToString(el)
     var svgBlob = new Blob([svgString], {type: 'text/svg'})
-    saveAs(svgBlob, "graph.svg")
+    var filename = slug || "graph"
+    saveAs(svgBlob, filename + ".svg")
   }
 }
 

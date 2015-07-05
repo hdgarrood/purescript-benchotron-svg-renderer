@@ -126,7 +126,8 @@ the recorded mean.</p>
 <div>
 <form>
 <input type="file" id="file"></input>
-<button type="button" id="export">Export to SVG</button>
+<button type="button" id="export-svg">Export to SVG</button>
+<button type="button" id="export-png">Export to PNG</button>
 </form>
 </div>
 
@@ -144,6 +145,7 @@ the recorded mean.</p>
 
 <script src="d3.v3.min.js"></script>
 <script src="FileSaver.min.js"></script>
+<script src="canvas-toBlob.js"></script>
 <script src="benchotronRenderer.js"></script>
 
 <script>
@@ -169,18 +171,54 @@ function handleFileSelect(evt) {
 document.getElementById('file')
   .addEventListener('change', handleFileSelect, false)
 
-function handleSvgExport() {
+function getCurrentSvgString() {
   var el = document.getElementsByTagName("svg")[0]
   if (el != null) {
-    var svgString = (new XMLSerializer).serializeToString(el)
-    var svgBlob = new Blob([svgString], {type: 'text/svg'})
-    var filename = slug || "graph"
-    saveAs(svgBlob, filename + ".svg")
+    return (new XMLSerializer).serializeToString(el)
+  } else {
+    throw new Error('No result set loaded')
   }
 }
 
-document.getElementById('export')
-  .addEventListener('click', handleSvgExport, false)
-</script>
+function handleSvgExport() {
+  var svgString = getCurrentSvgString()
+  var svgBlob = new Blob([svgString], {type: 'text/svg'})
+  var filename = slug || "graph"
+  saveAs(svgBlob, filename + ".svg")
+}
 
+document.getElementById('export-svg')
+  .addEventListener('click', handleSvgExport, false)
+
+function handlePngExport() {
+  var svgString = getCurrentSvgString()
+  var canvas = document.createElement('canvas')
+  canvas.width = 960
+  canvas.height = 500
+
+  svgToCanvas(svgString, canvas, function() {
+    canvas.toBlob(function(blob) {
+      var filename = slug || "graph"
+      saveAs(blob, filename + ".png")
+    })
+  })
+}
+
+// Render SVG (as a string) onto a Canvas element.
+function svgToCanvas(svgString, targetCanvas, callback) {
+  var ctx = targetCanvas.getContext('2d')
+
+  var img = new Image()
+  img.src = "data:image/svg+xml;base64," + btoa(svgString)
+
+  img.onload = function() {
+    ctx.drawImage(img, 0, 0)
+    callback()
+  }
+}
+
+document.getElementById('export-png')
+  .addEventListener('click', handlePngExport, false)
+
+</script>
 </html>

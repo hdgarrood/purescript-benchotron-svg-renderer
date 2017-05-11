@@ -1,7 +1,6 @@
 var fs                 = require("fs"),
     jsdom              = require("jsdom"),
     xmlserializer      = require("xmlserializer"),
-    canvas             = require("canvas"),
     FileAPI            = require("file-api")
 
 // Command line arguments
